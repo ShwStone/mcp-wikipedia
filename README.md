@@ -4,6 +4,15 @@ MCP server to give client the ability to access Wikipedia pages
 
 # Usage
 
+First run:
+
+```
+cd <path of MCP servers>
+git clone https://github.com/ShwStone/mcp-wikipedia.git
+```
+
+Then configure:
+
 ```json
 {
   "mcpServers": {
@@ -11,7 +20,7 @@ MCP server to give client the ability to access Wikipedia pages
       "command": "uv",
       "args": [
         "--directory",
-        "%USERPROFILE%/Documents/GitHub/mcp-wikipedia",
+        "<path of MCP servers>/mcp-wikipedia",
         "run",
         "python",
         "main.py"
