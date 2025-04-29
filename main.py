@@ -7,54 +7,54 @@ mcp = FastMCP(
 )
 
 @mcp.tool()
-def search(query: str):
+def search(query: str, lang: str = 'en'):
     """
-    search corresponding pages in wikipedia, results is a list of page topics
-
-    the proper way to use wikipedia is to:
-    
-    0. call set_lang(lang) to set language (e.g. zh or en) (default is en)
-    1. call search(keyword), get some reletive topics
-    2. choose a topic, call page(topic) to get full content; or call summary(topic) to get a summary
+    search corresponding pages in wikipedia, return the relative topics and their summaries
 
     @param query keyword to be searched
+
+    @param lang specific language to be searched, default is 'en'
     """
-    return wikipedia.search(query)
+    wikipedia.set_lang(lang)
+    topics = wikipedia.search(query)
+    return [{
+        "topic": topic, 
+        "summary": wikipedia.page(topic).summary
+    } for topic in topics]
 
 @mcp.tool()
-def summary(query: str):
+def summary(query: str, lang: str = 'en'):
     """
     summary of a topic
 
     @param query page's topic
+
+    @param lang specific language to be searched, default is 'en'
     """
+    wikipedia.set_lang(lang)
     return wikipedia.summary(query)
 
 @mcp.tool()
-def page(query: str):
+def page(query: str, lang: str = 'en'):
     """
     full content of a topic
 
     @param query page's topic
+
+    @param lang specific language to be searched, default is 'en'
     """
+    wikipedia.set_lang(lang)
     return wikipedia.page(query).content
 
 @mcp.tool()
-def random():
+def random(lang: str = 'en'):
     """
     return a random page of wikipedia
-    """
-    return wikipedia.page(wikipedia.random()).content
 
-@mcp.tool()
-def set_lang(lang: str):
-    """
-    set wikipedia language to be searched
-
-    @param lang language
+    @param lang specific language to be searched, default is 'en'
     """
     wikipedia.set_lang(lang)
-    return f"Language set to {lang}"
+    return wikipedia.page(wikipedia.random()).content
 
 if __name__ == "__main__":
     mcp.run()
