@@ -37,14 +37,14 @@ def page(query: str):
 
     @param query page's topic
     """
-    return wikipedia.page(query)
+    return wikipedia.page(query).content
 
 @mcp.tool()
 def random():
     """
     return a random page of wikipedia
     """
-    return wikipedia.random()
+    return wikipedia.page(wikipedia.random()).content
 
 @mcp.tool()
 def set_lang(lang: str):
