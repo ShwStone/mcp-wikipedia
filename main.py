@@ -20,7 +20,7 @@ def search(query: str, lang: str = 'en'):
     
     if len(topics) == 0 :
         return "None of topics has been found"
-    elif len(topics > 5) :
+    elif len(topics) > 5 :
         topics = topics[:5]
 
     return [{
