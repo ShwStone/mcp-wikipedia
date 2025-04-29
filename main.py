@@ -9,7 +9,7 @@ mcp = FastMCP(
 @mcp.tool()
 def search(query: str, lang: str = 'en'):
     """
-    search corresponding pages in wikipedia, return the relative topics and their summaries
+    search corresponding pages in wikipedia, return the top 5 relative topics and their summaries
 
     @param query keyword to be searched
 
@@ -17,6 +17,12 @@ def search(query: str, lang: str = 'en'):
     """
     wikipedia.set_lang(lang)
     topics = wikipedia.search(query)
+    
+    if len(topics) == 0 :
+        return "None of topics has been found"
+    elif len(topics > 5) :
+        topics = topics[:5]
+
     return [{
         "topic": topic, 
         "summary": wikipedia.page(topic).summary
